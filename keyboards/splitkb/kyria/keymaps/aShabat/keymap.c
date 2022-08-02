@@ -16,13 +16,13 @@
 #include QMK_KEYBOARD_H
 
 enum layers {
+    _GAMING = 0,
     _QWERTY,
     _DVORAK,
     _COLEMAK_DH,
     _NAV,
     _SYM,
     _FUNCTION,
-    _GAMING = 0,
     _ADJUST,
 };
 
@@ -175,24 +175,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
 /*
- * Function Layer: Function keys
+ * Gaming Layer: Gaming layout
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |   ESC  |  TAB |   Q  |      |   E  |   R  |                              |      |      |      |      |      |        |
+ * |   ESC  |  TAB |   Q  |   W  |   E  |   R  |                              |      |      | UP   |      |      |        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |    I   | SHIFT|   A  |   W  |   D  |   F  |                              |      | LEFT | UP   | RIGHT|      |        |
+ * |    M   | SHIFT|   A  |   S  |   D  |   F  |                              |      | LEFT | DOWN | RIGHT|      |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |    J   |  CTRL|      |   S  |      |   M  |      |      |  |      |      |      |      | DOWN |      |      |        |
+ * |    I   |  CTRL|   Z  |   X  |   C  |   V  |      |  J   |  |      |      |      |      |      |      |      |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      |      |      |      |      |  |      |      |      |      |      |
- *                        |      | LALT | SPACE|      |      |  |      |      |      |      |      |
+ *                        |      | LALT | SPACE|      |  K   |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_GAMING] = LAYOUT(
-       KC_ESC, KC_TAB ,  KC_Q  , _______,  KC_E  ,   KC_R ,                                     _______, _______, _______, _______, _______, _______,
-         KC_I, KC_LSFT,  KC_A  ,   KC_W ,  KC_D  ,   KC_F ,                                     _______, KC_LEFT,  KC_UP , KC_RGHT, _______, _______,
-         KC_J, KC_LCTL, _______,   KC_S , _______,   KC_M , _______, _______, _______, _______, _______, _______, KC_DOWN, _______, _______, _______,
-                                 _______, KC_LALT, KC_SPC , _______, _______, _______, _______, _______, _______, _______
+       KC_ESC, KC_TAB ,  KC_Q  ,   KC_W  ,  KC_E  ,   KC_R ,                                     _______, _______,  KC_UP , _______, _______, _______,
+        KC_M , KC_LSFT,  KC_A  ,   KC_S  ,  KC_D  ,   KC_F ,                                     _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,
+        KC_I , KC_LCTL,  KC_Z  ,   KC_X  ,  KC_C  ,   KC_V , _______,   KC_J , _______, _______, _______, _______, _______, _______, _______, _______,
+                                 _______ , KC_LALT, KC_SPC , _______,   KC_K , _______, _______, _______, _______, _______
     ),
 
 /*
@@ -244,7 +244,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * DO NOT edit the rev1.c file; instead override the weakly defined default functions by your own.
  */
 
-/* DELETE THIS LINE TO UNCOMMENT (1/2)
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_180; }
 
@@ -259,7 +258,7 @@ bool oled_task_user(void) {
         // clang-format on
 
         oled_write_P(qmk_logo, false);
-        oled_write_P(PSTR("Kyria rev1.0\n\n"), false);
+        oled_write_P(PSTR("Kyria rev2.0\n\n"), false);
 
         // Host Keyboard Layer Status
         oled_write_P(PSTR("Layer: "), false);
@@ -284,6 +283,9 @@ bool oled_task_user(void) {
                 break;
             case _ADJUST:
                 oled_write_P(PSTR("Adjust\n"), false);
+                break;
+            case _GAMING:
+                oled_write_P(PSTR("Gaming\n"), false);
                 break;
             default:
                 oled_write_P(PSTR("Undefined\n"), false);
@@ -313,6 +315,7 @@ bool oled_task_user(void) {
 }
 #endif
 
+/* DELETE THIS LINE TO UNCOMMENT (1/2)
 #ifdef ENCODER_ENABLE
 bool encoder_update_user(uint8_t index, bool clockwise) {
 
