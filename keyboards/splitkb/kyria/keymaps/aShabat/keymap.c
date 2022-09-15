@@ -44,9 +44,11 @@ enum layers {
 #define CTL_MINS MT(MOD_RCTL, KC_MINUS)
 #define ALT_ENT  MT(MOD_LALT, KC_ENT)
 
-#define GAMING  DF(_GAMING)
-#define COLEMAK DF(_COLEMAK_DH)
-#define LOL DF(_LOL)
+#define GAMING   DF(_GAMING)
+#define COLEMAK  DF(_COLEMAK_DH)
+#define RUSSIAN  DF(_RUSSIAN)
+#define HEBREW   DF(_HEBREW)
+#define LOL      DF(_LOL)
 
 // Note: LAlt/Enter (ALT_ENT) is not the same thing as the keyboard shortcut Alt+Enter.
 // The notation `mod/tap` denotes a key that activates the modifier `mod` when held down, and
@@ -73,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_TAB  , KC_Q ,  KC_W   ,  KC_F  ,   KC_P ,   KC_B ,                                        KC_J,   KC_L ,  KC_U ,   KC_Y ,KC_SCLN, KC_BSPC,
      CTL_ESC , KC_A ,  KC_R   ,  KC_S  ,   KC_T ,   KC_G ,                                        KC_M,   KC_N ,  KC_E ,   KC_I ,  KC_O , CTL_QUOT,
      KC_LSFT , KC_Z ,  KC_X   ,  KC_C  ,   KC_D ,   KC_V , KC_LBRC,KC_CAPS,     FKEYS  , KC_RBRC, KC_K,   KC_H ,KC_COMM, KC_DOT ,KC_SLSH, KC_RSFT,
-                                 ADJUST,   NAV  , ALT_ENT, KC_SPC , NAV   ,     SYM    , KC_SPC ,KC_RALT, KC_RGUI, KC_APP
+                                 ADJUST, KC_LGUI, ALT_ENT, KC_SPC , NAV   ,     SYM    , KC_SPC ,KC_RALT, KC_RGUI, KC_APP
     ),
     
 /*
@@ -90,10 +92,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        |      |      | Enter|      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
-    [_COLEMAK_DH] = LAYOUT(
+    [_RUSSIAN] = LAYOUT(
      KC_TAB  , RU_YU ,  RU_VE ,  RU_EF ,  RU_PE ,  RU_BE ,                                        RU_YA ,  RU_EL , RU_U  , RU_YERU, RU_CHE, KC_BSPC,
      CTL_ESC , RU_A  ,  RU_ER ,  RU_ES ,  RU_TE , RU_GHE ,                                        RU_EM ,  RU_EN , RU_IE ,   RU_I ,  RU_O , CTL_QUOT,
-     KC_LSFT ,RU_SOFT,  RU_TSE,  RU_DE ,  RU_HA ,  RU_ZE , RU_SHA ,KC_CAPS,     FKEYS  , RU_YA  , RU_KA ,  RU_HA ,KC_COMM, KC_DOT ,  RU_E , KC_RSFT,
+     KC_LSFT ,RU_SOFT,  RU_TSE,  RU_DE ,  RU_ZHE,  RU_ZE , RU_SHA ,KC_CAPS,     FKEYS  , RU_YA  , RU_KA ,  RU_HA ,KC_COMM, KC_DOT ,  RU_E , KC_RSFT,
                                  ADJUST, KC_LGUI, ALT_ENT, KC_SPC , NAV   ,     SYM    , KC_SPC ,KC_RALT, KC_RGUI, KC_APP
     ),
     
@@ -111,7 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        |      |      | Enter|      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
-    [_COLEMAK_DH] = LAYOUT(
+    [_HEBREW] = LAYOUT(
      KC_TAB  , KC_Q ,  KC_W   ,  KC_F  ,   KC_P ,   KC_B ,                                        KC_J,   KC_L ,  KC_U ,   KC_Y ,KC_SCLN, KC_BSPC,
      CTL_ESC , KC_A ,  KC_R   ,  KC_S  ,   KC_T ,   KC_G ,                                        KC_M,   KC_N ,  KC_E ,   KC_I ,  KC_O , CTL_QUOT,
      KC_LSFT , KC_Z ,  KC_X   ,  KC_C  ,   KC_D ,   KC_V , KC_LBRC,KC_CAPS,     FKEYS  , KC_RBRC, KC_K,   KC_H ,KC_COMM, KC_DOT ,KC_SLSH, KC_RSFT,
@@ -334,7 +336,13 @@ bool oled_task_user(void) {
         oled_write_P(PSTR("Layer: "), false);
         switch (get_highest_layer(layer_state|default_layer_state)) {
             case _COLEMAK_DH:
-                oled_write_P(PSTR("Colemak-DH\n"), false);
+                oled_write_P(PSTR("ENG\n"), false);
+                break;
+            case _RUSSIAN:
+                oled_write_P(PSTR("RUS\n", false));
+                break;
+            case _HEBREW:
+                oled_write_P(PSTR("HEB\n", false));
                 break;
             case _NAV:
                 oled_write_P(PSTR("Nav\n"), false);
