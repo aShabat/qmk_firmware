@@ -339,10 +339,10 @@ bool oled_task_user(void) {
                 oled_write_P(PSTR("ENG\n"), false);
                 break;
             case _RUSSIAN:
-                oled_write_P(PSTR("RUS\n", false));
+                oled_write_P(PSTR("RUS\n"), false);
                 break;
             case _HEBREW:
-                oled_write_P(PSTR("HEB\n", false));
+                oled_write_P(PSTR("HEB\n"), false);
                 break;
             case _NAV:
                 oled_write_P(PSTR("Nav\n"), false);
