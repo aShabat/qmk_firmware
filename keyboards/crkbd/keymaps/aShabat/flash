@@ -1,0 +1,1 @@
+qmk flash -kb crkbd/rev1 -km aShabat -e CONVERT_TO=promicro_rp2040
